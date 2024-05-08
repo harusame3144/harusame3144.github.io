@@ -2,7 +2,7 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  # - title: info
+  - title: 공부한 것들 올리는 공간
   #   entries:
   #     - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
   #     - title: github repo
@@ -26,13 +26,9 @@ entries:
   - title: rss
     url: feed.xml
   
-  # - title: another list
-  #   entries:
-  #     - title: with subitems
-  #       entries:
-  #         - title: with subsubitems
-  #         - title: example page
-  #           url: about
-  # - title: PRO TIP
-  #   entries:
-  #     - title: to edit this menu, edit _data/menu.yml file
+  - title: Contacts 📩
+    entries:
+      - title: Telegram
+      - title: Discord
+      - title: Email
+      
