@@ -2,9 +2,15 @@
 layout: default
 ---
 <header>
-  <h1>{{ site.title }}</h1>
+  <div style="display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;">
+    <img src="/logo.png" alt="{{ site.title }}" style="width: 2em; height: 2em; margin-right: 10px;">
+    <h1>{{ site.title }}</h1>
+  </div>
   {%-if site.theme_config.show_description-%}
-    <p>{{ site.description }}</p>
+  <p>{{ site.description }}</p>
   {%-endif-%}
 </header>
 
