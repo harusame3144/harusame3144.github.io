@@ -2,15 +2,14 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  - title: 공부한 것들 올리는 공간
+  - title: 공부한 내용을 기록하는 공간입니다.
     entries:
-      - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
-      - title: github repo
-        url: https://github.com/riggraz/no-style-please
-      - title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
+      - title: RSS
+        url: feed.xml
 
   - title: 최근 포스트
     post_list:
+      limit: 5
       show_more: true
       show_more_text: 모든 포스트
       show_more_url: archive.html
@@ -21,13 +20,3 @@ entries:
   #     show_more: true
   #     show_more_text: See more posts...
   #     show_more_url: example2-archive.html
-
-  - title: rss
-    url: feed.xml
-  
-  - title: Contacts 📩
-    entries:
-      - title: Telegram
-      - title: Discord
-      - title: Email
-      
