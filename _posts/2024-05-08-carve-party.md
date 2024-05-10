@@ -3,10 +3,9 @@ layout: post
 category: [wargame, web]
 ---
 
-# Carve Party [[Link]](https://dreamhack.io/wargame/challenges/96)
+## [문제](https://dreamhack.io/wargame/challenges/96)
 
-
-![Carve party](/assets/img/2024-05-05-carve-party.png)   
+![Carve party](/assets/img/2024-05-08-carve-party.png)   
 
 호박을 10000번 클릭해 플래그를 획득하면 되는 문제이다.
 
@@ -81,6 +80,7 @@ console.log(pumpkin.map(x => String.fromCharCode(x)).join('')); // DH{** FLAG **
 ```
 
 ### 비트 연산 XOR
+
 | A | B | A XOR B |
 |---|---|---------|
 | 0 | 0 | 0       |
@@ -90,6 +90,7 @@ console.log(pumpkin.map(x => String.fromCharCode(x)).join('')); // DH{** FLAG **
 
 
 ### 비트 연산 AND
+
 | A | B | A AND B |
 |---|---|---------|
 | 0 | 0 | 0       |
