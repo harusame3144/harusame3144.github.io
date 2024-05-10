@@ -1,4 +1,4 @@
-timezone: Asia/Seoul # timezone of the site
+# timezone: Asia/Seoul # timezone of the site
 title: 당면의 블로그 # name of the site
 author: 당면 # name of site's author
 email: cotwo0139@gmail.com # email of site's author
@@ -15,13 +15,33 @@ favicon: "logo.png" # name+extension of favicon (which must be put on the root f
 theme: no-style-please # if you are using GitHub Pages, change it to remote_theme: riggraz/no-style-please
 
 theme_config:
-  appearance: "auto" # can be "light", "dark" or "auto"
+  appearance: "light" # can be "light", "dark" or "auto"
   back_home_text: "<<" # customize text for homepage link in post layout
   date_format: "%Y-%m-%d" # customize how date is formatted
   show_description: false # show blog description in home page
 
 sass:
   style: :compressed
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  gfm_emojis: false
+  auto_ids: true
+  entity_output: as_char
+  footnote_backlink_inline: "false"
+  footnote_nr: 1
+  header_offset: 0
+  html_to_native: false
+  latex_headers: section,subsection,subsubsection,paragraph,subparagraph,subparagraph
+  line_width: 72
+  parse_block_html: false
+  parse_span_html: true
+  remove_block_html_tags: true
+  remove_line_breaks_for_cjk: false
+  remove_span_html_tags: false
+  syntax_highlighter: rouge
+  transliterated_header_ids: false
 
 plugins:
   - jekyll-feed
