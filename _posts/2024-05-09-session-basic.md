@@ -36,7 +36,7 @@ def admin():
 
 크롬의 개발자 도구를 이용해 ``sessionid`` 쿠키의 값을 ``admin`` 계정의 세션 아이디로 변조한다.
 
-![관리자의 세션 아이디를 탈취하였다](/assets/img/2024-05-09-session-basic/devtool-cookie.png)
+![세션 아이디를 관리자의 세션 아이디로 변경하였다](/assets/img/2024-05-09-session-basic/devtool-cookie.png)
 
 이후 메인 페이지에 접속하면 관리자로 로그인되어 플래그가 표시되는 것을 확인할 수 있다.
 
