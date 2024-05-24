@@ -6,7 +6,7 @@ category: [wargame, web]
 ## [문제](https://dreamhack.io/wargame/challenges/267)
 개발자 도구의 Sources 탭 기능을 활용해 플래그를 찾아보세요.
 
-## 풀이
+## 문제 풀이
 > 개발자 도구 여는법
  - F12
  - Ctrl + Shift + I
