@@ -16,10 +16,10 @@ blockquote {
     border-radius: 10px;
 }
 
-.language-plaintext {
+p > .language-plaintext {
     background-color: #122b3b;
     border-radius: 5px;
     padding: .2em .4em;
     color: #fff;
-    font-size: .7em;
+    font-size: .75em;
 }
