@@ -5,7 +5,7 @@ category: [wargame, web]
 
 ## [문제](https://dreamhack.io/wargame/challenges/96)
 
-![Carve party](/assets/img/2024-05-08-carve-party.png)   
+![Carve party](/assets/img/2024-05-08-carve-party/carve-party.png)   
 
 호박을 10000번 클릭해 플래그를 획득하면 되는 문제이다.
 
@@ -56,6 +56,18 @@ $(function() {
 ## 풀이
 위 코드 중에서 중요한 부분은 호박을 클릭할 때마다 `pumpkin` 배열의 값을 XOR, AND 연산하는 부분이기 때문에   
 연산하는 부분만 따로 실행하여 플래그를 획득하였다.
+
+#### 비트 연산 XOR / AND
+
+| A | B | A XOR B | A AND B |
+|---|---|---------|---------|
+| 0 | 0 | 0       | 0       |
+| 0 | 1 | 1       | 0       |
+| 1 | 0 | 1       | 0       |
+| 1 | 1 | 0       | 1       |
+
+> ![AND/XOR Example](/assets/img/2024-05-08-carve-party/and-xor-example.svg.svg)
+
 ```js
 // FLAG 배열
 const pumpkin = [ 124, 112, 59, 73, 167, 100, 105, 75, 59, 23, 16, 181, 165, 104, 43, 49, 118, 71, 112, 169, 43, 53 ];
@@ -78,22 +90,3 @@ for (let j = 0; j < 10000 / 100 ; j ++) {
 // FLAG를 출력한다
 console.log(pumpkin.map(x => String.fromCharCode(x)).join('')); // DH{** FLAG **}
 ```
-
-### 비트 연산 XOR
-
-| A | B | A XOR B |
-|---|---|---------|
-| 0 | 0 | 0       |
-| 0 | 1 | 1       |
-| 1 | 0 | 1       |
-| 1 | 1 | 0       |
-
-
-### 비트 연산 AND
-
-| A | B | A AND B |
-|---|---|---------|
-| 0 | 0 | 0       |
-| 0 | 1 | 0       |
-| 1 | 0 | 0       |
-| 1 | 1 | 0       |
