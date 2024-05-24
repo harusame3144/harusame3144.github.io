@@ -15,3 +15,10 @@ blockquote {
     margin: 0;
     border-radius: 10px;
 }
+
+.language-plaintext {
+    background-color: #122b3b;
+    border-radius: 5px;
+    padding: .2em .4em;
+    color: #f696db;
+}
