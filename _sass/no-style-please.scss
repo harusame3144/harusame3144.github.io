@@ -25,7 +25,6 @@ html { height: 100%; }
 
 body {
   color: black;
-  font-family: monospace;
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
@@ -85,15 +84,12 @@ blockquote {
 
 img {
   max-width: 100%;
-  display: block;
   margin: 0 auto;
 }
 
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
 }
 
 @font-face {
@@ -103,4 +99,7 @@ img {
 
 * {
   font-family: Pretendard-Regular emoji;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
 }
