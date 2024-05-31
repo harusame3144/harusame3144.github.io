@@ -49,8 +49,9 @@ CREATE DATABASE TEST_DATABASE;
 
 #### 테이블 생성
 ```sql
-USE TEST_DATABASE; # TEST_DATABASE 를 사용
-# users 테이블을 생성한다.
+# TEST_DATABASE 를 사용
+USE TEST_DATABASE;
+# users 테이블을 생성한다
 CREATE TABLE users(
     userid int auto_increment,
     username varchar(10) not null,
