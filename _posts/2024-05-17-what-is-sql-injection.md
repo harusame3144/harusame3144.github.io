@@ -97,4 +97,43 @@ GRANT SELECT ON users TO 'user'@'localhost'
 
 ## SQL Injection
 
-- TODO -
+> Injection 이란?   
+사전적 의미: 주입, 삽입   
+컴퓨터에서의 Injection: 악의적으로 작성된 입력이 애플리케이션에 전송되어 의도하지 않은 명령어를 실행하거나 허가되지 않은 데이터에 접근하도록 속이는 공격의 광범위한 범주를 의미한다.
+
+글로 적는거보다 코드로 보는 게 이해가 더 쉬울 것 같다.
+아래의 예시 코드를 확인해보자.
+
+```py
+@app.route('/check')
+def search():
+    user_id = request.args.get('id')
+    user_password = request.args.get('pw')
+    if user_id is None or user_password is None:
+        return "Query parameter: id, pw required"
+    db = get_db()
+    cursor = db.cursor()
+    # SQL Injection 취약 코드
+    sql_query = f"SELECT * FROM users WHERE name = '{user_id}' AND password = '{user_password}'"
+
+    cursor.execute(sql_query)
+    results = cursor.fetchall()
+    
+    if len(results) == 0:
+        return "No user found / ID or password incorrect"
+    
+    return f"Welcome {results[0][0]} your password is {results[0][1]}"
+```
+
+위 SQL 쿼리를 보면, 사용자의 입력을 그대로 SQL 쿼리에 대입하고 있다.   이는 SQL Injection으로 쿼리를 조작하기 매우 쉽다.
+
+정상적인 요청의 예시로 아래와 같은 요청을 서버에 하게 될 경우   
+``http://localhost:5000/check?id=guest&password=guest``  
+서버가 실행하는 SQL 쿼리는 아래와 같으며   
+``
+SELECT * FROM users WHERE name = 'guest' AND password = 'guest'
+``   
+데이터베이스는 ``name`` 과 ``password`` 가 저장된 값과 일치할 경우 사용자의 데이터를 반환한다.
+
+하지만 SQL Injection 페이로드가 포함된 아래와 같은 예시 요청의 경우
+``http://localhost:5000/check?id=``
