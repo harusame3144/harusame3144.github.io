@@ -1,6 +1,6 @@
 ---
 layout: post
-category: [steganography]
+category: [misc]
 title: What kind of picture is this?
 ---
 
