@@ -1,7 +1,7 @@
 ---
 layout: post
 category: [web]
-title: PHP LFI
+title: PHP REAL LFI
 ---
 
 ## [문제](http://h4ckingga.me/challenges#Season1%20:%20Real%20PHP%20LFI-32)
